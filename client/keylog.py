@@ -1,6 +1,5 @@
 import tkinter as tk
-from keylog_designer import KeylogApp
-class KeylogProcess(KeylogApp):
+class KeylogProcess():
     def __init__(self, nw, client, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.nw = nw  # Lưu giá trị self.nw

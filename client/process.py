@@ -2,8 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import socket
 import threading
-from process_designer import ProcessApp
-class Process(ProcessApp):
+class Process():
     def __init__(self, nw, client, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.nw = nw  # Lưu giá trị self.nw

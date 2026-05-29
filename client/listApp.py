@@ -1,9 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 import threading
-from listApp_designer import ListApp
 
-class ListAppProcess(ListApp):
+class ListAppProcess():
     def __init__(self, nw, client, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.nw = nw  # Lưu giá trị self.nw

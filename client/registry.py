@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
-from registry_designer import RegistryApp
-class RegistryProcess(RegistryApp):
+class RegistryProcess():
     def __init__(self, nw, client, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.nw = nw  # Lưu giá trị self.nw

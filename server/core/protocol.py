@@ -1,0 +1,5 @@
+class Commands:
+    KEYLOG = "KEYLOG"
+    PROCESS = "PROCESS"
+    REGISTRY = "REGISTRY"
+    TAKEPIC = "TAKEPIC"

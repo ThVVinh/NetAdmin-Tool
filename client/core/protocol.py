@@ -1,0 +1,5 @@
+class Protocol:
+    CONNECT = "CONNECT"
+    PROCESS = "PROCESS"
+    KEYLOG = "KEYLOG"
+    SCREENSHOT = "SCREENSHOT"

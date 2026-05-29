@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import filedialog
-from pic_designer import PicDesigner
 from mss import mss
 import threading
 from PIL import Image, ImageTk
@@ -8,7 +7,7 @@ import io
 
 
 
-class PicProcess(PicDesigner):
+class PicProcess():
     def __init__(self, nw, client, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.nw = nw  # Lưu giá trị self.nw

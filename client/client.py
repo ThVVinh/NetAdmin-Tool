@@ -4,11 +4,10 @@ from socket import socket, AF_INET, SOCK_STREAM
 from listApp import ListAppProcess  # Import the corresponding Python file for listApp
 from registry import RegistryProcess  # Import the corresponding Python file for registry
 from keylog import KeylogProcess # Import the corresponding Python file for keylog
-from client_designer import ClientDesignerApp
 from pic import PicProcess
 from process import Process
 
-class ClientApp(ClientDesignerApp):
+class ClientApp():
     def butConnect_Click(self):
         try:
             ip_address = self.txtIP.get()
