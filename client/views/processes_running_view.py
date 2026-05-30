@@ -11,13 +11,13 @@ class ProcessesRunningView(tk.Toplevel):
         self.btn_kill = ttk.Button(self, text="Kill")
         self.btn_kill.place(x=24, y=12, width=66, height=47)
         
-        self.btn_view = ttk.Button(self, text="Xem")
+        self.btn_view = ttk.Button(self, text="View")
         self.btn_view.place(x=96, y=12, width=59, height=47)
         
         self.btn_start = ttk.Button(self, text="Start")
         self.btn_start.place(x=231, y=12, width=59, height=47)
         
-        self.btn_delete = ttk.Button(self, text="Xóa")
+        self.btn_delete = ttk.Button(self, text="Delete")
         self.btn_delete.place(x=161, y=12, width=64, height=47)
         
         self.listView = ttk.Treeview(self, columns=("Name Process", "ID Process", "Count Thread"), show="headings")

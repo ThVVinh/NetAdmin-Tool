@@ -7,7 +7,7 @@ class ProcessesRunningService:
         self.socket_client.send("PROCESS")
         
     def get_processes_running(self):
-        self.socket_client.send("XEM")
+        self.socket_client.send("VIEW")
         
         length = int.from_bytes(
             self.socket_client.recv_exact(4),

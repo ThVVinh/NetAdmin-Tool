@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import simpledialog
 
 class AppsRunningView(tk.Toplevel):
     def __init__(self):
@@ -8,47 +9,59 @@ class AppsRunningView(tk.Toplevel):
         self.title("List App")
         self.geometry("330x300")
 
-        self.button2 = tk.Button(self, text="Kill", command=self.kill_application)
-        self.button2.place(x=22, y=12, width=64, height=52)
+        self.kill_btn = tk.Button(self, text="Kill")
+        self.kill_btn.place(x=22, y=12, width=64, height=52)
         
-        self.button1 = tk.Button(self, text="Xem", command=self.view_application)
-        self.button1.place(x=92, y=12, width=65, height=52)
+        self.view_btn = tk.Button(self, text="View")
+        self.view_btn.place(x=92, y=12, width=65, height=52)
   
-        self.button4 = tk.Button(self, text="Xóa", command=self.delete_application)
-        self.button4.place(x=163, y=12, width=75, height=52)
+        self.delete_btn = tk.Button(self, text="Delete")
+        self.delete_btn.place(x=163, y=12, width=75, height=52)
 
-        self.button3 = tk.Button(self, text="Start", command=self.start_application)
-        self.button3.place(x=244, y=12, width=64, height=52)
+        self.start_btn = tk.Button(self, text="Start")
+        self.start_btn.place(x=244, y=12, width=64, height=52)
 
-        #listView
-        self.columns = ("Name Application", "ID Application", "Count Thread") #danh sách các cột
-        self.listView1 = ttk.Treeview(self, columns=self.columns, show="headings") #tạo widget
+        self.columns = ("Name Application", "ID Application", "Count Thread")
+        self.listView = ttk.Treeview(self, columns=self.columns, show="headings")
         
-        self.listView1.heading("Name Application", text="Name Application") #đặt tiêu đề cho mỗi cột
-        self.listView1.column("Name Application", width=96) # đặt chiều rộng mỗi cột
+        self.listView.heading("Name Application", text="Name Application") 
+        self.listView.column("Name Application", width=96) 
         
-        self.listView1.heading("ID Application", text="ID Application") #đặt tiêu đề cho mỗi cột
-        self.listView1.column("ID Application", width=100) # đặt chiều rộng mỗi cột
+        self.listView.heading("ID Application", text="ID Application") 
+        self.listView.column("ID Application", width=100) 
         
-        self.listView1.heading("Count Thread", text="Count Thread") #đặt tiêu đề cho mỗi cột
-        self.listView1.column("Count Thread", width=82) # đặt chiều rộng mỗi cột
+        self.listView.heading("Count Thread", text="Count Thread") 
+        self.listView.column("Count Thread", width=82) 
         
-        self.listView1.place(x=22, y=83, width=286, height=182)
+        self.listView.place(x=22, y=83, width=286, height=182)
 
-    def view_application(self):
-        # Code to populate the list of applications
-        pass
 
-    def kill_application(self):
-        pass
+    def show_apps(self, app_list):
+        self.listView.delete(*self.listView.get_children())
+        
+        for app in app_list:
+            self.listView.insert(
+                "",
+                "end",
+                values=(
+                    app["name"],
+                    app["pid"],
+                    app["threads"]
+                )
+            )
+            
+    def get_selected_pid(self):
+        selected_item = self.listView.focus()
+        
+        if not selected_item:
+            return None
 
-    def start_application(self):
-        # Code to start the selected application
-        pass
+        item_data = self.listView.item(selected_item, "values")
 
-    def delete_application(self):
-        pass
-
-if __name__ == "__main__":
-    app = AppsRunningView()
-    app.mainloop()
+        return item_data[1]
+    
+    def ask_app_name(self):
+        return simpledialog.askstring(
+            "Start Application",
+            "Nhập tên application:"
+        )

@@ -1,5 +1,11 @@
 from tkinter import messagebox
 
+from controllers.keylog_controller import KeyLogController
+from views.keylog_view import KeylogView
+from controllers.apps_running_controller import AppsRunningController
+from services.keylog_service import Keylog_Service
+from services.apps_running_service import AppsRunningService
+from views.apps_running_view import AppsRunningView
 from services.processes_running_service import ProcessesRunningService
 from controllers.processes_running_controller import ProcessesRunningController, ProcessesRunningController
 from views.processes_running_view import ProcessesRunningView
@@ -24,10 +30,6 @@ class BaseController:
             command=self.butShutdown_Click
         )
         
-        self.view.btnReg.config(
-            command=self.butReg_Click
-        )
-        
         self.view.btnExit.config(
             command=self.butExit_Click
         )
@@ -36,8 +38,8 @@ class BaseController:
             command=self.butScreenshot_Click
         )
         
-        self.view.btnKeyLock.config(
-            command=self.butKeyLock_Click
+        self.view.btnKeyLog.config(
+            command=self.butKeyLog_Click
         )
         
         self.view.btnProcess.config(
@@ -49,30 +51,19 @@ class BaseController:
             ip_address = self.view.txtIP.get()
             self.service.connect_to_server(ip_address)
             messagebox.showinfo("Success", "Connected to server successfully")
-
         except Exception as e:
             messagebox.showerror("Error", "Failed to connect to server")
 
     def butApp_Click(self):
-        # if Program.client:
-        #     Program.nw.write("APPLICATION\n")
-        #     Program.nw.flush()
-        #     viewApp = ListAppProcess(Program.nw, Program.client)
-        #     viewApp.mainloop()
-        pass
-    
-    def butProcess_Click(self):
-        # if Program.client:
-        #     Program.nw.write("PROCESS\n")
-        #     Program.nw.flush()
-        viewApp = ProcessesRunningView()
-        service = ProcessesRunningService(self.service.socket_client)
-        process_controller = ProcessesRunningController(viewApp, service)
-        
+        apps_view = AppsRunningView()
+        service = AppsRunningService(self.service.socket_client)
+        app_controller = AppsRunningController(apps_view, service)
 
     
-    def butReg_Click(self):
-        pass
+    def butProcess_Click(self):
+        processes_view = ProcessesRunningView()
+        service = ProcessesRunningService(self.service.socket_client)
+        process_controller = ProcessesRunningController(processes_view, service)
     
     def butExit_Click(self):
         self.service.socket_client.close()
@@ -81,8 +72,10 @@ class BaseController:
     def butScreenshot_Click(self):
         pass
     
-    def butKeyLock_Click(self):
-        pass
+    def butKeyLog_Click(self):
+        keylog_view = KeylogView()
+        service = Keylog_Service(self.service.socket_client)
+        keylog_controller = KeyLogController(keylog_view, service)
     
     def butShutdown_Click(self):
         pass

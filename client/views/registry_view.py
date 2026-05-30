@@ -52,7 +52,7 @@ class RegistryView(tk.Toplevel):
         self.button1 = ttk.Button(self.groupBox1, text="Gửi", command=self.button1_Click)
         self.button1.place(x=69, y=173, width=97, height=23)
         
-        self.butXoa = ttk.Button(self.groupBox1, text="Xóa", command=self.delete_value)
+        self.butXoa = ttk.Button(self.groupBox1, text="Delete", command=self.delete_value)
         self.butXoa.place(x=192, y=173, width=94, height=23)
 
     def butSend_Click(self):

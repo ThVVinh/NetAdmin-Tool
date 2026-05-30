@@ -86,7 +86,7 @@ class ServerApp():
         while True:
             signal = self.receive_signal(ns)
         
-            if signal == "XEM":
+            if signal == "VIEW":
                 processes = psutil.process_iter(attrs=['pid', 'name', 'num_threads'])
                 process_info = []
 

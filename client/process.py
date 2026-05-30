@@ -46,7 +46,7 @@ class Process():
 
 
     def view_process(self):
-        self.nw.write("XEM\n")
+        self.nw.write("VIEW\n")
         self.nw.flush()
         num_process_bytes = self.client.recv(4)
         num_process = int.from_bytes(num_process_bytes, byteorder='big')

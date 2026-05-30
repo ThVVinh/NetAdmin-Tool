@@ -46,7 +46,7 @@ class ListAppProcess():
 
 
     def view_application(self):
-        self.nw.write("XEM\n")
+        self.nw.write("VIEW\n")
         self.nw.flush()
         num_application_bytes = self.client.recv(4)
         num_application = int.from_bytes(num_application_bytes, byteorder='big')
