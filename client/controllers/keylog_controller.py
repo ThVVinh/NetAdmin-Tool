@@ -4,6 +4,10 @@ class KeyLogController:
     def __init__(self, view, service):
         self.view = view
         self.service = service
+        self.view.protocol(
+            "WM_DELETE_WINDOW",
+            self.on_close
+        )
         self.bind_events()
         
     def bind_events(self):
@@ -24,9 +28,13 @@ class KeyLogController:
         )
         
     def hook(self):
+        self.view.hook_btn.config(state="disabled")
+        self.view.unhook_btn.config(state="normal")
         self.service.hook()
     
     def unhook(self):
+        self.view.hook_btn.config(state="normal")
+        self.view.unhook_btn.config(state="disabled")
         self.service.unhook()
     
     def log_keys(self):
@@ -46,4 +54,6 @@ class KeyLogController:
         self.view.txtKQ.insert(tk.END, data + "\n")
         self.view.txtKQ.config(state=tk.DISABLED)
         
-        
+    def on_close(self):
+        self.service.close()
+        self.view.destroy()

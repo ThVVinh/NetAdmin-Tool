@@ -27,6 +27,7 @@ class AppHandler:
                 self.app_service.start_app(app_name)
 
             elif signal == "QUIT":
+                session.close()
                 break
 
     def send_apps(self, session, apps):

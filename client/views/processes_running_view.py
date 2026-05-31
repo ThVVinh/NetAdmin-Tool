@@ -29,6 +29,7 @@ class ProcessesRunningView(tk.Toplevel):
         self.listView.column("Count Thread", width=75)
         self.listView.place(x=24, y=74, width=266, height=162)
     
+            
     def show_processes(self, process_list):
         self.listView.delete(*self.listView.get_children())
         

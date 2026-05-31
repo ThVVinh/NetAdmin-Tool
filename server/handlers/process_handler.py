@@ -26,6 +26,7 @@ class ProcessHandler:
                 self.process_service.start_process(process_name)
 
             elif signal == "QUIT":
+                session.close()
                 break
             
     def send_processes(self, session, processes):

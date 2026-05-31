@@ -39,5 +39,6 @@ class SocketClient:
         return int.from_bytes(byte_data, byteorder='big')
 
     def close(self):
+        print("Closing connection...")
         if self.socket:
             self.socket.close()

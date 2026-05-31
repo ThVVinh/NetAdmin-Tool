@@ -10,13 +10,13 @@ class KeylogView(tk.Toplevel):
         self.txtKQ = tk.Text(self, state="disabled")
         self.txtKQ.place(x = 12, y = 77, width = 318, height = 182)
 
-        self.hook_btn = tk.Button(self, text="Hook")
+        self.hook_btn = tk.Button(self, text="Hook", state="normal")
         self.hook_btn.place(x = 12, y = 12, width = 75, height = 59)
 
-        self.unhook_btn = tk.Button(self, text="Unhook")
+        self.unhook_btn = tk.Button(self, text="Unhook", state="disabled")
         self.unhook_btn.place(x = 93, y = 13, width = 75, height = 58)
 
-        self.log_keys_btn = tk.Button(self, text="In phím")
+        self.log_keys_btn = tk.Button(self, text="Print Keys")
         self.log_keys_btn.place(x = 174, y = 12, width = 75, height = 59)
 
         self.clear_btn = tk.Button(self, text="Clear")

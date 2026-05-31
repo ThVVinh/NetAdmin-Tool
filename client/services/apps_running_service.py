@@ -30,3 +30,7 @@ class AppsRunningService:
         message = f"START\n{app_name}"
 
         self.socket_client.send(message)
+        
+    def close(self):
+        self.socket_client.send("QUIT")
+        self.socket_client.close()

@@ -31,3 +31,7 @@ class ProcessesRunningService:
         message = f"START\n{process_name}"
 
         self.socket_client.send(message)
+        
+    def close(self):
+        self.socket_client.send("QUIT")
+        self.socket_client.close()

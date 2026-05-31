@@ -3,9 +3,14 @@ class BaseService:
         self.socket_client = socket_client
         
     def connect_to_server(self, ip):
-        self.socket_client.connect(ip, 5656)
-        message = "CONNECTED"
-        self.socket_client.send(message)
+        try:
+            self.socket_client.connect(ip, 5656)
+            message = "CONNECTED"
+            self.socket_client.send(message)
+            return True
+        except Exception as ex:
+            print(f"Error connecting to server: {ex}")
+            return False
 
     def disconnect_from_server(self):
         message = "DISCONNECTED"

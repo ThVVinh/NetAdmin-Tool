@@ -1,234 +1,260 @@
-# Remote Computer Management Application
+# NetAdmin Tool
 
-## Overview
+A Python-based remote administration tool that allows monitoring and managing Windows computers over a Local Area Network (LAN).
 
-This project is a remote computer management application developed using Python, Tkinter, and Socket Programming.
-The application allows a client machine to connect to another computer within the same Local Area Network (LAN) and perform several remote management operations.
+## Features
 
-The system follows a client-server architecture:
+### Process Management
 
-* **Server**: executes commands on the remote machine
-* **Client**: provides a graphical interface for controlling and monitoring the remote machine
-
-The project was refactored using a lightweight MVC-style architecture to improve maintainability and readability while keeping the original business logic.
-
----
-
-# Features
-
-## Process Management
-
-* View running processes
-* Kill selected processes
+* View running processes on remote machine
 * Start new processes remotely
-* Clear process list
+* Terminate selected processes
+* Refresh process list
 
-## Application Management
+### Application Management
 
-* View running applications
-* Kill applications
-* Start applications remotely
-* Refresh application list
+* View running desktop applications
+* Launch applications remotely
+* Close selected applications
 
-## Screenshot Capture
+### Screenshot Capture
 
-* Capture remote screen
-* Display screenshot in real time
-* Save screenshot locally
+* Capture remote desktop screenshots
+* Display screenshots in real time
+* Save screenshots locally
 
-## Keylogging
+### Keyboard Monitoring
 
-* Start keyboard hook
-* Stop keyboard hook
-* Display logged keystrokes
-* Clear keylog data
+* Start keyboard monitoring
+* Stop keyboard monitoring
+* View recorded keystrokes
+* Clear log history
 
-## Registry Management
+### Remote Shutdown
 
-* Send `.reg` files remotely
-* Create registry keys
-* Delete registry keys
-* Set registry values
-* Delete registry values
-* Read registry values
-
-## System Control
-
-* Shutdown remote computer
-* Connect/disconnect from server
+* Shutdown remote computer through LAN
 
 ---
 
-# Technologies Used
+## Technologies Used
 
-* Python
+### Backend
+
+* Python 3.x
+* Socket Programming (TCP)
+* psutil
+* winreg
+* mss
+* threading
+
+### GUI
+
 * Tkinter
-* Socket Programming
-* PIL (Pillow)
-* MSS
-* Threading
+* ttk widgets
+* Pillow
 
----
+### Architecture
 
-# Project Structure
+The project is currently being refactored following the MVC (Model – View – Controller) architecture.
 
-```bash
-client/
+```
+Client
 │
-├── controller/
-│   ├── main_controller.py
-│   ├── apps_running_controller.py
-│   ├── processes_running_controller.py
-│   ├── keylog_controller.py
-│   ├── screenshot_controller.py
-│   └── registry_controller.py
+├── controllers
+├── services
+├── models
+├── views
+├── network
+└── main.py
+
+Server
 │
-├── ui/
-│   ├── main_window.py
-│   ├── apps_running_window.py
-│   ├── processes_running_window.py
-│   ├── keylog_window.py
-│   ├── screenshot_window.py
-│   └── registry_window.py
-│
-├── core/
-│   └── client_core.py
-│
+├── controllers
+├── handlers
+├── services
+├── models
+├── network
 └── main.py
 ```
 
 ---
 
-# Architecture
+## System Architecture
 
-The project uses a simplified MVC-inspired architecture:
-
-## UI Layer
-
-Contains only Tkinter widgets and layouts.
-
-Example:
-
-* Buttons
-* Entry fields
-* Treeviews
-* Textboxes
-
-## Controller Layer
-
-Handles:
-
-* Socket communication
-* Business logic
-* UI events
-
-## Core Layer
-
-Handles:
-
-* Low-level socket operations
-* Sending/receiving data
-* Connection management
+```
++----------------+
+| Client (GUI)   |
++----------------+
+         |
+         | TCP Socket
+         |
++----------------+
+| Server         |
++----------------+
+         |
+         +--> Process Service
+         +--> Application Service
+         +--> Screenshot Service
+         +--> Keylogger Service
+         +--> Registry Service
+```
 
 ---
 
-# Installation
+## Communication Protocol
 
-## Clone Repository
+### Process Management
 
-```bash
-git clone <your-repository-url>
-cd project-name
+Client:
+
+```
+PROCESS
+VIEW
 ```
 
-## Install Dependencies
+Server Response:
+
+```
+[4 bytes] Number of processes
+
+For each process:
+    [4 bytes] Data length
+    [N bytes] Process information
+```
+
+### Kill Process
+
+Client:
+
+```
+PROCESS
+KILL
+KILLID
+1234
+```
+
+### Start Process
+
+Client:
+
+```
+PROCESS
+START
+STARTID
+notepad.exe
+```
+
+---
+
+## Installation
+
+### Clone repository
 
 ```bash
-py -3.11 -m venv venv 
+git clone https://github.com/yourusername/NetAdmin-Tool.git
+cd NetAdmin-Tool
+```
+
+### Create virtual environment
+
+```bash
+python -m venv venv
+```
+
+### Activate virtual environment
+
+Windows:
+
+```bash
 venv\Scripts\activate
-pip install -r requirements.txt 
+```
+
+### Install dependencies
+
+```bash
+pip install -r requirements.txt
 ```
 
 ---
 
-# Running the Application
+## Running the Application
 
-## Start Server
-
-```bash
-python -m server.main
-```
-
-## Start Client
+### Start Server
 
 ```bash
-python -m client.main
+python server/main.py
 ```
+
+Expected output:
+
+```text
+Server running on 0.0.0.0:5656
+Waiting for clients...
+```
+
+### Start Client
+
+```bash
+python client/main.py
+```
+
+Enter the server IP address and click **Connect**.
 
 ---
 
-# Screenshots
+## Screenshots
 
-## Main Window
+### Main Window
 
 Add screenshot here:
 
-```bash
-README_assets/main_window.png
+```
+docs/images/main-window.png
 ```
 
-## Process Management
+### Process Management
 
 Add screenshot here:
 
-```bash
-README_assets/process_window.png
+```
+docs/images/process-running.png
 ```
 
-## Screenshot Feature
+### Screenshot Capture
 
 Add screenshot here:
 
-```bash
-README_assets/screenshot_window.png
+```
+docs/images/screenshot-feature.png
 ```
 
----
-
-# Learning Outcomes
-
-Through this project, I learned:
-
-* Socket programming in Python
-* Multi-window desktop applications using Tkinter
-* Client-server communication
-* Remote system management
-* Lightweight MVC architecture
-* Refactoring legacy code
-* Threading for background tasks
-* GUI event handling
-
----
-
-# Future Improvements
+## Future Improvements
 
 * Authentication system
 * Encrypted communication
 * Multi-client support
-* Better UI design
-* Async socket communication
-* Logging system
+* File transfer
+* Remote command execution
+* Logging and auditing
 * Cross-platform support
 
 ---
 
-# Disclaimer
+## Educational Purpose
 
-This project was created for educational and research purposes only.
-It should only be used in authorized environments and local networks.
+This project was developed for learning purposes to practice:
+
+* Socket Programming
+* Multithreading
+* Operating System Management
+* Client-Server Architecture
+* MVC Design Pattern
+* Python GUI Development
 
 ---
 
-# Author
+## Author
 
 Van Vinh Thai
+
+GitHub: https://github.com/ThVVinh/NetAdmin-Tool

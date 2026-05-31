@@ -35,7 +35,6 @@ class AppsRunningView(tk.Toplevel):
         
         self.listView.place(x=22, y=83, width=286, height=182)
 
-
     def show_apps(self, app_list):
         self.listView.delete(*self.listView.get_children())
         

@@ -1,5 +1,10 @@
 from tkinter import messagebox
 
+from controllers.shutdown_controller import Shutdown_Controller
+from services.shutdown_service import Shutdown_Service
+from views.screenshot_view import Screenshot_View
+from controllers.screenshot_controller import Screenshot_Controller
+from services.screenshot_service import Screenshot_Service
 from controllers.keylog_controller import KeyLogController
 from views.keylog_view import KeylogView
 from controllers.apps_running_controller import AppsRunningController
@@ -18,39 +23,48 @@ class BaseController:
         self.bind_events()
         
     def bind_events(self):
-        self.view.btnApp.config(
+        self.view.app_btn.config(
             command=self.butApp_Click
         )
         
-        self.view.btnConnect.config(
+        self.view.connect_btn.config(
             command=self.butConnect_Click
         )
         
-        self.view.btnTat.config(
+        self.view.turnOff_btn.config(
             command=self.butShutdown_Click
         )
         
-        self.view.btnExit.config(
+        self.view.exit_btn.config(
             command=self.butExit_Click
         )
         
-        self.view.btnScreenshot.config(
+        self.view.screenshot_btn.config(
             command=self.butScreenshot_Click
         )
         
-        self.view.btnKeyLog.config(
+        self.view.keylog_btn.config(
             command=self.butKeyLog_Click
         )
         
-        self.view.btnProcess.config(
+        self.view.process_btn.config(
             command=self.butProcess_Click
         )
         
     def butConnect_Click(self):
         try:
             ip_address = self.view.txtIP.get()
-            self.service.connect_to_server(ip_address)
-            messagebox.showinfo("Success", "Connected to server successfully")
+            if self.service.connect_to_server(ip_address):
+                messagebox.showinfo("Success", "Connected to server successfully")
+                self.view.app_btn.config(state="normal")
+                self.view.turnOff_btn.config(state="normal")
+                self.view.screenshot_btn.config(state="normal")
+                self.view.keylog_btn.config(state="normal")
+                self.view.process_btn.config(state="normal")
+                self.view.connect_btn.config(state="disabled")
+                self.view.txtIP.config(state="disabled")
+            else:
+                messagebox.showerror("Error", "Failed to connect to server")
         except Exception as e:
             messagebox.showerror("Error", "Failed to connect to server")
 
@@ -70,7 +84,9 @@ class BaseController:
         self.view.destroy()
     
     def butScreenshot_Click(self):
-        pass
+        screenshot_view = Screenshot_View()
+        service = Screenshot_Service(self.service.socket_client)
+        screenshot_controller = Screenshot_Controller(screenshot_view, service)
     
     def butKeyLog_Click(self):
         keylog_view = KeylogView()
@@ -78,4 +94,6 @@ class BaseController:
         keylog_controller = KeyLogController(keylog_view, service)
     
     def butShutdown_Click(self):
-        pass
+        service = Shutdown_Service(self.service.socket_client)
+        Shutdown_Controller(self.view, service)
+        

@@ -5,7 +5,10 @@ class ProcessesRunningController:
     def __init__(self, view, service):
         self.view = view
         self.service = service
-
+        self.view.protocol(
+            "WM_DELETE_WINDOW",
+            self.on_close
+        )
         self.bind_events()
         
     def bind_events(self):
@@ -68,3 +71,7 @@ class ProcessesRunningController:
 
     def clear_processes_table(self):
         self.view.listView.delete(*self.view.listView.get_children())
+        
+    def on_close(self):
+        self.service.close()
+        self.view.destroy()

@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+
+venv/
+.venv/
+
+.vscode/
+.idea/
+
+.env
+
+*.log
+
+cache/
+*.reg
+
+screenshots/

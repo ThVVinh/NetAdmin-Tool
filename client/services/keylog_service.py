@@ -22,3 +22,7 @@ class Keylog_Service:
         data_length = int.from_bytes(self.socket_client.recv_exact(4), "big")
         data = self.socket_client.recv_exact(data_length)
         return data.decode()
+    
+    def close(self):
+        self.socket_client.send("QUIT")
+        self.socket_client.close()
