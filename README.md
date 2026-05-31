@@ -206,26 +206,32 @@ Enter the server IP address and click **Connect**.
 
 ### Main Window
 
-Add screenshot here:
-
 ```
-docs/images/main-window.png
+screenshots/main-window.png
 ```
 
 ### Process Management
 
-Add screenshot here:
+```
+screenshots/process-running.png
+```
+
+### App Management
 
 ```
-docs/images/process-running.png
+screenshots/app-running.png
 ```
 
 ### Screenshot Capture
 
-Add screenshot here:
+```
+screenshots/screenshot-feature.png
+```
+
+### Keylog Capture
 
 ```
-docs/images/screenshot-feature.png
+screenshots/keylog.png
 ```
 
 ## Future Improvements
